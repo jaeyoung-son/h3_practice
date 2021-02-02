@@ -16,7 +16,7 @@ function useLocationValue() {
           longitude: data.longitude,
         });
       } catch (e) {
-        console.log(3);
+        console.log(e);
       }
     };
     request();
