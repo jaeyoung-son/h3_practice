@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getLocation } from '../utils/api/location';
+import { getLocation } from '../../utils/api/location';
 
 function useLocationValue() {
   const [location, setLocation] = useState({
@@ -9,11 +9,15 @@ function useLocationValue() {
 
   useEffect(() => {
     const request = async () => {
-      const { data } = await getLocation();
-      setLocation({
-        latitude: data.latitude,
-        longitude: data.longitude,
-      });
+      try {
+        const { data } = await getLocation();
+        setLocation({
+          latitude: data.latitude,
+          longitude: data.longitude,
+        });
+      } catch (e) {
+        console.log(3);
+      }
     };
     request();
   }, []);
