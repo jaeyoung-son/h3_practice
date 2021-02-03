@@ -2,12 +2,15 @@ import { useEffect, useRef } from 'react';
 import './Map.css';
 import { MAP_POSITION } from '../../config/config';
 import useLocationValue from '../../hooks/h3/useLocationValue';
+import usePolygon from '../../hooks/h3/usePolygon';
 import Button from './Button';
 
 function Map() {
-  const { location } = useLocationValue();
   const mapElement = useRef(null);
   const mapInstance = useRef(null);
+
+  const { location } = useLocationValue();
+  const { polygonState, handleClick } = usePolygon(mapInstance, location);
 
   useEffect(() => {
     if (window.google) {
@@ -19,10 +22,10 @@ function Map() {
   }, []);
 
   return (
-    <>
+    <section>
       <div className="map_container" ref={mapElement}></div>
-      <Button location={location} mapInstance={mapInstance} />
-    </>
+      <Button polygonState={polygonState} handleClick={handleClick} />
+    </section>
   );
 }
 
